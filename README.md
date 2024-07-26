@@ -7,7 +7,7 @@ Intelli-Gents <br>
 HayBale - OpenAI <br>
 Ogbeni - TBA <br>
 Pengi - TBA<br>
-Elementus - Manager/Code Architech <br>
+Elementus - Manager/Code Architect <br>
 Mr Griffin - The man that allowed for this insane idea to possibly happen. <br>
 
 # To-do
