@@ -6,7 +6,7 @@ from keys import openaiKey
 api_key = openaiKey
 client = OpenAI(
     # This is the default and can be omitted
-    api_key=openaiKey,
+    api_key=openaiKey
 )
 
 chat_completion = client.chat.completions.create(
@@ -16,7 +16,7 @@ chat_completion = client.chat.completions.create(
             "content": "Say this is a test",
         }
     ],
-    model="gpt-4-mini",
+    model="gpt-4o-mini"
 )
 
-print(chat_completion.choices[0].text.strip())
+print(str(chat_completion.choices[0]).strip())
