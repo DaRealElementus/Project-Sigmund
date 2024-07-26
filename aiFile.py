@@ -1,13 +1,12 @@
 '''File to utilise the CHATGPT API'''
-import openai
-import os
+from openai import OpenAI
 from keys import openaiKey 
 
 
-openai.api_key = openaiKey
-client = openai.OpenAI(
+api_key = openaiKey
+client = OpenAI(
     # This is the default and can be omitted
-    api_key=os.environ.get(openaiKey),
+    api_key=openaiKey,
 )
 
 chat_completion = client.chat.completions.create(
