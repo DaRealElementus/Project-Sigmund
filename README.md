@@ -5,10 +5,20 @@ A Therapy andriod that utilises ChatGPT to provide responses and help those in n
 # The Team
 Intelli-Gents <br>
 HayBale - OpenAI <br>
-Ogbeni - TBA <br>
-Pengi - TBA<br>
-Elementus - Manager/Code Architech <br>
+Ogbeni - OpenAI, InputOutput <br>
+Pengi - Motory<br>
+Elementus - Core, InputOutput <br>
 Mr Griffin - The man that allowed for this insane idea to possibly happen. <br>
 
 # To-do
-Alex do this later - past alex
+* Build the AI System
+* Intergrate the Microphone/Speaker array
+* Design the face
+* Motorize the face
+* Converge everything into main.py
+* Finalize construction
+* Test (lots of it)
+* Present
+
+# Done
+* OpenAi API Key
