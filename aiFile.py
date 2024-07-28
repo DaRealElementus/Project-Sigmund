@@ -18,5 +18,5 @@ chat_completion = client.chat.completions.create(
     ],
     model="gpt-4o-mini"
 )
-
-print(str(chat_completion.choices[0]).strip())
+#Apparently this works....
+print(str(chat_completion.choices[0].text).strip())
