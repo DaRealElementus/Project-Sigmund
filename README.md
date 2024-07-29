@@ -12,6 +12,7 @@ Mr Griffin - The man that allowed for this insane idea to possibly happen. <br>
 
 # To-do
 * Build the AI System
+* Functions on everything
 * Intergrate the Microphone/Speaker array
 * Design the face
 * Motorize the face
