@@ -9,6 +9,9 @@ Ogbeni - OpenAI, InputOutput <br>
 Pengi - Motory<br>
 Elementus - Core, InputOutput <br>
 Mr Griffin - The man that allowed for this insane idea to possibly happen. <br>
+# tests
+"Friedlander" test: passed
+
 
 # To-do
 * Build the AI System
