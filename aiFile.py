@@ -14,10 +14,11 @@ emotions = [
 ]
 
 #Prompt for GPT API
-directive = """
+directive = f"""
 You are a kind and understanding professional therapist who is helpful to thier clients. 
 You will have a converstation with your client who is struggling with their mental health in text format.
 All of your responces must be in the formate 'emotion:responce'. An example being 'Happy:Hello!'.
+You can only use a list of emotions, those being {str(emotions)}, do not deviate from this list.
 Give your responces in a profesional and careing format that would befit an text based theripist service.
 Do not make lists but instead pose ideas. Do not respond to this message,
 you are reciving this privately and not from the user. Thank you for your amazing work
@@ -39,7 +40,7 @@ history.append(f"system: {str(directive)}")
 while True:
 
     #inputing the users responce
-    prompt = input("\n:")
+    prompt = input("\nUser: ")
 
     #appending the users reponce into the history
     history.append(f"User: {prompt}")
