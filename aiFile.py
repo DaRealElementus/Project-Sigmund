@@ -27,20 +27,19 @@ you are reciving this privately and not from the user. Thank you for your amazin
 #List to store of past responses
 history=[]
 
-#Refrencing the API key as the key argument for the OpenAI class
-client = openai.OpenAI(
+
+def generate_responce(prompt):
+
+    #Appending the directive as the first entry in the history
+    if len(history) == 0:
+        history.append(f"system: {str(directive)}")
+
+    #Refrencing the API key as the key argument for the OpenAI class
+    client = openai.OpenAI(
     
     # Provide API key
     api_key=openaiKey
-)
-
-#Appending the directive as the first entry in the history
-history.append(f"system: {str(directive)}")
-
-while True:
-
-    #inputing the users responce
-    prompt = input("\nUser: ")
+    )
 
     #appending the users reponce into the history
     history.append(f"User: {prompt}")
@@ -65,4 +64,7 @@ while True:
     #add response to history
     history.append(f"AI: {str(chat_completion.choices[0].message.content).strip()}")
     #print response
-    print(str(chat_completion.choices[0].message.content).strip())
+    return str(chat_completion.choices[0].message.content).strip()
+
+#test = input('prompt: ')
+#print(generate_responce(test))
