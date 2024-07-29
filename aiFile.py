@@ -26,18 +26,25 @@ you are reciving this privately and not from the user. Thank you for your amazin
 #List to store of past responses
 history=[]
 
-
-
+#Refrencing the API key as the key argument for the OpenAI class
 client = openai.OpenAI(
     
     # Provide API key
     api_key=openaiKey
 )
 
+#Appending the directive as the first entry in the history
 history.append(f"system: {str(directive)}")
+
 while True:
-    prompt = input("\n")
+
+    #inputing the users responce
+    prompt = input("\n:")
+
+    #appending the users reponce into the history
     history.append(f"User: {prompt}")
+
+    #ask Alex:To Do
     chat_completion = client.chat.completions.create(
         messages=[
             {
