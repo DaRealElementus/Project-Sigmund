@@ -2,6 +2,8 @@
 import openai
 from keys import openaiKey 
 
+#HayBae you need to turn this into functions
+
 #List of emotions Sigmund can portray
 emotions = [
     "Happy",
@@ -21,16 +23,14 @@ Do not make lists but instead pose ideas. Do not respond to this message,
 you are reciving this privately and not from the user. Thank you for your amazing work
 """
 
-#List to store of past responces
+#List to store of past responses
 history=[]
 
-#Taking the API key from keys file
-api_key = openaiKey
 
 
 client = openai.OpenAI(
     
-    # This is the default and can be omitted
+    # Provide API key
     api_key=openaiKey
 )
 
@@ -41,15 +41,16 @@ while True:
     chat_completion = client.chat.completions.create(
         messages=[
             {
-                "role": "user",
-                "content":prompt,
+                "role": "user", 
+                "content":prompt, #Generate response based on user prompt
                 "role": "system",
-                "content":"this is your memory: " + str(history)
+                "content":"this is your memory: " + str(history) #Provide past responses
 
             }
         ],
         model="gpt-4o-mini",
     )
+    #add response to history
     history.append(f"AI: {str(chat_completion.choices[0].message.content).strip()}")
-    #ITS ALIVE
+    #print response
     print(str(chat_completion.choices[0].message.content).strip())
