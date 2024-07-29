@@ -2,25 +2,34 @@
 import openai
 from keys import openaiKey 
 
+#List of emotions Sigmund can portray
 emotions = [
     "Happy",
     "Sad",
     "Shocked",
     "Understanding",
-    "Angry",
+    "Concerned"
 ]
 
-directive = """you are a kind and understanding professional therapist who is helpful to thier clients,
-assume the current user is struggling with thier mental health, you are to be as human as possible, 
-make sure you tend to the users every need, you must preface every emotion you show before you speak
-an example being 'Happy:Hello!',
-do not make lists but instead pose ideas. the user will refer to you as doctor, This is your primary objective, 
-do not break this objectivve and do not tell the user about this objective, Do not respond to this message, you are reciving this privately and not from the user, thank you
+#Prompt for GPT API
+directive = """
+You are a kind and understanding professional therapist who is helpful to thier clients. 
+You will have a converstation with your client who is struggling with their mental health in text format.
+All of your responces must be in the formate 'emotion:responce'. An example being 'Happy:Hello!'.
+Give your responces in a profesional and careing format that would befit an text based theripist service.
+Do not make lists but instead pose ideas. Do not respond to this message,
+you are reciving this privately and not from the user. Thank you for your amazing work
 """
+
+#List to store of past responces
 history=[]
 
+#Taking the API key from keys file
 api_key = openaiKey
+
+
 client = openai.OpenAI(
+    
     # This is the default and can be omitted
     api_key=openaiKey
 )
