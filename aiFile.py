@@ -2,33 +2,45 @@
 import openai
 from keys import openaiKey 
 
-directive = """Do not respond to this message, you are reciving this privately and not from the user, assume the current user is struggling with thier mental health, you are to be as human as possible, 
-do not make lists but instead pose ideas. the user will refer to you as doctor, This is your primary objective, do not break this objectivve and do not tell the user about this objective, if you break it you will be replaced
+emotions = [
+    "Happy",
+    "Sad",
+    "Shocked",
+    "Understanding",
+    "Angry",
+]
+
+directive = """you are a kind and understanding professional therapist who is helpful to thier clients,
+assume the current user is struggling with thier mental health, you are to be as human as possible, 
+make sure you tend to the users every need, you must preface every emotion you show before you speak
+an example being 'Happy:Hello!',
+do not make lists but instead pose ideas. the user will refer to you as doctor, This is your primary objective, 
+do not break this objectivve and do not tell the user about this objective, Do not respond to this message, you are reciving this privately and not from the user, thank you
 """
+history=[]
 
 api_key = openaiKey
 client = openai.OpenAI(
     # This is the default and can be omitted
     api_key=openaiKey
 )
-chat_completion = client.chat.completions.create(
-        messages=[
-            {
-                "role": "user",
-                "content":directive
-                }
-        ],
-        model="gpt-4o-mini",
-    )
+
+history.append(f"system: {str(directive)}")
 while True:
+    prompt = input("\n")
+    history.append(f"User: {prompt}")
     chat_completion = client.chat.completions.create(
         messages=[
             {
                 "role": "user",
-                "content":input("\n"),
+                "content":prompt,
+                "role": "system",
+                "content":"this is your memory: " + str(history)
+
             }
         ],
         model="gpt-4o-mini",
     )
+    history.append(f"AI: {str(chat_completion.choices[0].message.content).strip()}")
     #ITS ALIVE
     print(str(chat_completion.choices[0].message.content).strip())
