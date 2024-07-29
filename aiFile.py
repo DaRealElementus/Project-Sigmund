@@ -44,8 +44,10 @@ while True:
     #appending the users reponce into the history
     history.append(f"User: {prompt}")
 
-    #ask Alex:To Do
+    #Creates chat with API
     chat_completion = client.chat.completions.create(
+
+        #package sent to GPT
         messages=[
             {
                 "role": "user", 
@@ -55,6 +57,8 @@ while True:
 
             }
         ],
+
+        #GPT model to use
         model="gpt-4o-mini",
     )
     #add response to history
