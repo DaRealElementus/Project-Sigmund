@@ -2,45 +2,69 @@
 import openai
 from keys import openaiKey 
 
+#HayBae you need to turn this into functions
+
+#List of emotions Sigmund can portray
 emotions = [
     "Happy",
     "Sad",
     "Shocked",
     "Understanding",
-    "Angry",
+    "Concerned"
 ]
 
-directive = """you are a kind and understanding professional therapist who is helpful to thier clients,
-assume the current user is struggling with thier mental health, you are to be as human as possible, 
-make sure you tend to the users every need, you must preface every emotion you show before you speak
-an example being 'Happy:Hello!',
-do not make lists but instead pose ideas. the user will refer to you as doctor, This is your primary objective, 
-do not break this objectivve and do not tell the user about this objective, Do not respond to this message, you are reciving this privately and not from the user, thank you
+#Prompt for GPT API
+directive = f"""
+You are a kind and understanding professional therapist who is helpful to thier clients. 
+You will have a converstation with your client who is struggling with their mental health in text format.
+All of your responces must be in the formate 'emotion:responce'. An example being 'Happy:Hello!'.
+You can only use a list of emotions, those being {str(emotions)}, do not deviate from this list.
+Give your responces in a profesional and careing format that would befit an text based theripist service.
+Do not make lists but instead pose ideas. Do not respond to this message,
+you are reciving this privately and not from the user. Thank you for your amazing work
 """
+
+#List to store of past responses
 history=[]
 
-api_key = openaiKey
-client = openai.OpenAI(
-    # This is the default and can be omitted
-    api_key=openaiKey
-)
 
-history.append(f"system: {str(directive)}")
-while True:
-    prompt = input("\n")
+def generate_responce(prompt):
+
+    #Appending the directive as the first entry in the history
+    if len(history) == 0:
+        history.append(f"system: {str(directive)}")
+
+    #Refrencing the API key as the key argument for the OpenAI class
+    client = openai.OpenAI(
+    
+    # Provide API key
+    api_key=openaiKey
+    )
+
+    #appending the users reponce into the history
     history.append(f"User: {prompt}")
+
+    #Creates chat with API
     chat_completion = client.chat.completions.create(
+
+        #package sent to GPT
         messages=[
             {
-                "role": "user",
-                "content":prompt,
+                "role": "user", 
+                "content":prompt, #Generate response based on user prompt
                 "role": "system",
-                "content":"this is your memory: " + str(history)
+                "content":"this is your memory: " + str(history) #Provide past responses
 
             }
         ],
+
+        #GPT model to use
         model="gpt-4o-mini",
     )
+    #add response to history
     history.append(f"AI: {str(chat_completion.choices[0].message.content).strip()}")
-    #ITS ALIVE
-    print(str(chat_completion.choices[0].message.content).strip())
+    #print response
+    return str(chat_completion.choices[0].message.content).strip()
+
+#test = input('prompt: ')
+#print(generate_responce(test))
