@@ -7,7 +7,7 @@ import serial
 resetString = "debug_reset_EmergencyShower"
 
 ser = serial.Serial()
-ser.baudrate = 19200
+ser.baudrate = 19200                                     
 ser.port = 'COM1'
 
 while True:
