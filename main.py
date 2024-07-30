@@ -12,7 +12,7 @@ ser.port = 'COM1'
 
 while True:
     #Funky input
-    userWords = input("Lani please work on the speech recog algo: ")
+    userWords = input("\n")
     #^ replace with actual input func
     if userWords == resetString:
         aiFile.history = []
