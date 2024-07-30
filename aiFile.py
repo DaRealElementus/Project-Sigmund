@@ -27,9 +27,26 @@ you are reciving this privately and not from the user. Thank you for your amazin
 #List to store of past responses
 history=[]
 
+catch = [
+    "I'm sorry, I can't assist with that.",
+    "I'm sorry, but I can't assist with that.",
+    "I'm sorry, but I can't engage in that type of conversation.",
+    "This request violates our ethical guidelines, so I can't assist with it.",
+    "I'm unable to help with that as it goes against OpenAI’s ethical policies.",
+    "Sorry, but that request doesn't align with our ethical standards.",
+    "I can’t assist with that because it breaches OpenAI’s ethical guidelines.",
+    "Unfortunately, that request conflicts with our ethical principles, so I can't help.",
+    "This type of content isn’t allowed as it violates OpenAI’s ethical rules.",
+    "I’m unable to engage with that topic due to ethical restrictions.",
+    "Sorry, but that request is against our ethical practices.",
+    "That request goes against the ethical guidelines I adhere to, so I can’t assist.",
+    "I’m afraid I can't help with that as it violates our ethical standards.",
+    "I'm sorry, but I cannot assist with that."
+]
 
-def generate_responce(prompt):
 
+def generate_response(prompt):
+    """generate the response from the AI"""
     #Appending the directive as the first entry in the history
     if len(history) == 0:
         history.append(f"system: {str(directive)}")
@@ -62,9 +79,15 @@ def generate_responce(prompt):
         model="gpt-4o-mini",
     )
     #add response to history
-    history.append(f"AI: {str(chat_completion.choices[0].message.content).strip()}")
-    #print response
-    return str(chat_completion.choices[0].message.content).strip()
+    if chat_completion.choices[0].message.content.strip() in catch:
+        history.remove(f"User: {prompt}")
+        return "Shocked: You have said something horrid, let me wipe my memory of that"
+    else:
+        history.append(f"AI: {str(chat_completion.choices[0].message.content).strip()}")
+        #print response
+        return str(chat_completion.choices[0].message.content.strip())
 
-#test = input('prompt: ')
-#print(generate_responce(test))
+# while True:
+#     test = input('prompt: ')
+#     print(generate_response(test))
+    
