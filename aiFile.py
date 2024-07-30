@@ -87,6 +87,6 @@ def generate_response(prompt):
         return str(chat_completion.choices[0].message.content.strip())
 
 while True:
-    test = input('prompt: ')
+    test = input('\nprompt: ')
     print(generate_response(test))
     
