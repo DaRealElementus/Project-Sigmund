@@ -46,7 +46,7 @@ catch = [
 
 
 def generate_response(prompt):
-
+    """generate the response from the AI"""
     #Appending the directive as the first entry in the history
     if len(history) == 0:
         history.append(f"system: {str(directive)}")
