@@ -1,7 +1,4 @@
-# Python program to translate
-# speech to text and text to speech
-
-
+'''File to utilise the Microphone speaker system'''
 import speech_recognition as sr
 import pyttsx3 
 
@@ -11,7 +8,6 @@ r = sr.Recognizer()
 # Function to convert text to
 # speech
 def SpeakText(command):
-    
     # Initialize the engine
     engine = pyttsx3.init()
     engine.say(command) 
@@ -28,5 +24,6 @@ def recogniseAudio():
         
         MyText = r.recognize_google(audio2)
         MyText = MyText.lower()
+        print(MyText)
         return MyText
         

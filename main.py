@@ -3,6 +3,7 @@ import aiFile
 import inputOutputSystem
 import keys
 import serial
+import inputOutput
 
 resetString = "debug_reset_EmergencyShower"
 
@@ -12,7 +13,8 @@ ser.port = 'COM1'
 
 while True:
     #Funky input
-    userWords = input("\n")
+    userWords = inputOutput.recogniseAudio()
+    
     #^ replace with actual input func
     if userWords == resetString:
         aiFile.history = []
@@ -25,5 +27,6 @@ while True:
         #     ser.write(emotion)
         
         #Funky output
+        inputOutput.SpeakText(str(content.strip()))
         print(str(content.strip()))
         #^replace with actual output func
