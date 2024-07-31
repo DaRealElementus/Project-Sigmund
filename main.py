@@ -3,6 +3,7 @@ import aiFile
 import inputOutputSystem
 import keys
 import serial
+import Testaudio
 
 resetString = "debug_reset_EmergencyShower"
 
@@ -26,4 +27,5 @@ while True:
         
         #Funky output
         print(str(content.strip()))
+        Testaudio.SpeakText(str(content.strip()))
         #^replace with actual output func
