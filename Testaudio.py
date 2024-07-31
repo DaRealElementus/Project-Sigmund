@@ -1,25 +1,45 @@
-import speech_recognition
- 
-# The Recognizer is initialized.
-UserVoiceRecognizer = speech_recognition.Recognizer()
- 
-while(1):
-    try:
- 
-        with speech_recognition.Microphone() as UserVoiceInputSource:
- 
-            UserVoiceRecognizer.adjust_for_ambient_noise(UserVoiceInputSource, duration=0.5)
- 
-            # The Program listens to the user voice input.
-            UserVoiceInput = UserVoiceRecognizer.listen(UserVoiceInputSource)
- 
-            UserVoiceInput_converted_to_Text = UserVoiceRecognizer.recognize_google(UserVoiceInput)
-            UserVoiceInput_converted_to_Text = UserVoiceInput_converted_to_Text.lower()
-            print(UserVoiceInput_converted_to_Text)
+# Python program to translate
+# speech to text and text to speech
+
+
+import speech_recognition as sr
+import pyttsx3 
+
+# Initialize the recognizer 
+r = sr.Recognizer() 
+
+# Function to convert text to
+# speech
+def SpeakText(command):
     
-    except KeyboardInterrupt:
-        print('A KeyboardInterrupt encountered; Terminating the Program !!!')
-        exit(0)
+    # Initialize the engine
+    engine = pyttsx3.init()
+    engine.say(command) 
+    engine.runAndWait()
     
-    except speech_recognition.UnknownValueError:
-        print("No User Voice detected OR unintelligible noises detected OR the recognized audio cannot be matched to text !!!")
+    
+# Loop infinitely for user to
+# speak
+
+while(1):    
+    
+    # Exception handling to handle
+    # exceptions at the runtime
+    
+    # use the microphone as source for input.
+    with sr.Microphone() as source2:
+        
+        # wait for a second to let the recognizer
+        # adjust the energy threshold based on
+        # the surrounding noise level 
+        r.adjust_for_ambient_noise(source2, duration=0.2)
+        
+        #listens for the user's input 
+        audio2 = r.listen(source2)
+        
+        # Using google to recognize audio
+        MyText = r.recognize_google(audio2)
+        MyText = MyText.lower()
+
+        print("Did you say ", MyText)
+        SpeakText(MyText)
