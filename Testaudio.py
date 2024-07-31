@@ -14,6 +14,8 @@ def SpeakText(command):
     
     # Initialize the engine
     engine = pyttsx3.init()
+    voices = engine.getProperty('voices')
+    engine.setProperty('voice', voices[1].id)
     engine.say(command) 
     engine.runAndWait()
     
