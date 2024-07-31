@@ -17,6 +17,8 @@ while True:
     #^ replace with actual input func
     if userWords == resetString:
         aiFile.history = []
+        print("resetting memory")
+        Testaudio.SpeakText("resetting memory")
     else:
         output = aiFile.generate_response(userWords)
         emotion, content = output.split(":")
