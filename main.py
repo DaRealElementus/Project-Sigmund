@@ -16,7 +16,7 @@ while True:
     #Funky input
     userWords = input("\n")
     #^ replace with actual input func
-    if userWords == resetString:
+    if userWords.lower() == resetString.lower():
         aiFile.history = []
     else:
         output = aiFile.generate_response(userWords)
