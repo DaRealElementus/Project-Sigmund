@@ -2,10 +2,10 @@
 import openai
 from keys import openaiKey 
 
-# from transformers import pipeline
+from transformers import pipeline
 
-# #creating emotion object using sentiment analysis model
-# emotion = pipeline('sentiment-analysis', model='arpanghoshal/EmoRoBERTa')
+#creating emotion object using sentiment analysis model
+emotion = pipeline('sentiment-analysis', model='arpanghoshal/EmoRoBERTa')
 
 #List of emotions Sigmund can portray
 emotions = [
@@ -88,12 +88,12 @@ def generate_response(prompt):
     else:
         history.append(f"AI: {str(chat_completion.choices[0].message.content).strip()}")
         #print response
-        #emotion_labels = emotion(chat_completion.choices[0].message.content.strip())
-        #print(emotion_labels)
+        emotion_labels = emotion(chat_completion.choices[0].message.content.strip())
+        print(emotion_labels)
         return str(chat_completion.choices[0].message.content.strip())
 
 
-while True:
-    test = input('prompt: ')
-    print(generate_response(test))
+# while True:
+#     test = input('prompt: ')
+#     print(generate_response(test))
     
