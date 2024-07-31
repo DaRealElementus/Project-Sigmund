@@ -31,6 +31,7 @@ Remember, you are receiving this instruction privately, not from the client. Tha
 #List to store of past responses
 history=[]
 
+#phrases that are returned but chatgpt when something is said that is against TOS, these are the possible responses (that we found)
 catch = [
     "I'm sorry, I can't assist with that.",
     "I'm sorry, but I can't assist with that.",
@@ -81,7 +82,7 @@ def generate_response(prompt):
         #GPT model to use
         model="gpt-4o-mini",
     )
-    #add response to history
+    #error prevention where the ai spits out a bad response
     if chat_completion.choices[0].message.content.strip() in catch:
         history.remove(f"User: {prompt}")
         return "Shocked: You have said something horrid, let me wipe my memory of that"
@@ -93,7 +94,8 @@ def generate_response(prompt):
         return str(chat_completion.choices[0].message.content.strip())
 
 
+#Un code comment these when you want to do a raw test, see emotion ect.
 # while True:
-#     test = input('prompt: ')
+#     test = input('\nprompt: ')
 #     print(generate_response(test))
     
