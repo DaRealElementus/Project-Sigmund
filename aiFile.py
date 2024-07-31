@@ -2,7 +2,10 @@
 import openai
 from keys import openaiKey 
 
-#HayBae you need to turn this into functions
+from transformers import pipeline
+
+#creating emotion object using sentiment analysis model
+emotion = pipeline('sentiment-analysis', model='arpanghoshal/EmoRoBERTa')
 
 #List of emotions Sigmund can portray
 emotions = [
@@ -20,9 +23,9 @@ You will engage in a text-based conversation with your client, who is experienci
 Your responses should be professional, caring, and appropriate for a licensed therapist. 
 Offer helpful advice to support your client's mental health in a thoughtful and encouraging manner. 
 Avoid making lists and instead present ideas conversationally.
-Remember, you are receiving this instruction privately, not from the client. Thank you for your excellent work.
 It is imperitive that your responses must follow this format: 'emotion: response' For example: 'Happy: Hello!'.
 For this you can only use the following list of emotions: {str(emotions)}. Please do not use any emotions outside of this list.
+Remember, you are receiving this instruction privately, not from the client. Thank you for your excellent work.
 """
 
 #List to store of past responses
@@ -86,7 +89,10 @@ def generate_response(prompt):
     else:
         history.append(f"AI: {str(chat_completion.choices[0].message.content).strip()}")
         #print response
+        emotion_labels = emotion(chat_completion.choices[0].message.content.strip())
+        print(emotion_labels)
         return str(chat_completion.choices[0].message.content.strip())
+
 
 # while True:
 #     test = input('prompt: ')
