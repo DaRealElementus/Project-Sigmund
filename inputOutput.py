@@ -21,7 +21,6 @@ def recogniseAudio():
         r.adjust_for_ambient_noise(source2, duration=0.2)
     
         audio2 = r.listen(source2)
-        
         MyText = r.recognize_google(audio2)
         MyText = MyText.lower()
         print(MyText)

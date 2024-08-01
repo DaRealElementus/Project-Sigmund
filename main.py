@@ -15,10 +15,17 @@ ser.port = 'COM1'
 
 while True:
     #Funky input
-    print("Listening...")
-    userWords = inputOutput.recogniseAudio()
-    print("Complete")
-    
+    heard = False
+    while heard == False:
+        try:
+            print("Listening...")
+            userWords = inputOutput.recogniseAudio()
+            heard = True
+        except:
+            print("Sorry I couldn't hear you, could you please say that again?")
+            inputOutput.SpeakText("Sorry I couldn't hear you, could you please say that again?")
+        
+
     #^ replace with actual input func
     if userWords.lower() == resetString.lower():
         aiFile.history = []
