@@ -15,7 +15,9 @@ ser.port = 'COM1'
 
 while True:
     #Funky input
+    print("Listening...")
     userWords = inputOutput.recogniseAudio()
+    print("Complete")
     
     #^ replace with actual input func
     if userWords.lower() == resetString.lower():
@@ -31,7 +33,6 @@ while True:
         #     ser.write(emotion)
         
         #Funky output
-        inputOutput.SpeakText(str(content.strip()))
         print(str(content.strip()))
         inputOutput.SpeakText(str(content.strip()))
         #^replace with actual output func

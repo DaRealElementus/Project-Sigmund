@@ -93,7 +93,7 @@ def generate_response(prompt):
         # print(emotion_labels)
         return str(chat_completion.choices[0].message.content.strip())
 
-while True:
-    test = input('\nprompt: ')
-    print(generate_response(test))
+# while True:
+#     test = input('\nprompt: ')
+#     print(generate_response(test))
     
