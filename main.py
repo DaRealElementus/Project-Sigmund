@@ -3,7 +3,7 @@ import aiFile
 import inputOutputSystem
 import keys
 import serial
-import Testaudio
+import inputOutput
 
 resetString = "debug_reset_EmergencyShower"
 
@@ -15,12 +15,15 @@ ser.port = 'COM1'
 
 while True:
     #Funky input
-    userWords = input("\n")
+    print("Listening...")
+    userWords = inputOutput.recogniseAudio()
+    print("Complete")
+    
     #^ replace with actual input func
     if userWords.lower() == resetString.lower():
         aiFile.history = []
         print("resetting memory")
-        Testaudio.SpeakText("resetting memory")
+        inputOutput.SpeakText("resetting memory")
     else:
         output = aiFile.generate_response(userWords)
         emotion, content = output.split(":")
@@ -31,5 +34,5 @@ while True:
         
         #Funky output
         print(str(content.strip()))
-        Testaudio.SpeakText(str(content.strip()))
+        inputOutput.SpeakText(str(content.strip()))
         #^replace with actual output func
