@@ -3,6 +3,7 @@ import aiFile
 import inputOutputSystem
 import keys
 import serial
+import inputOutput
 
 resetString = "debug_reset_EmergencyShower"
 
