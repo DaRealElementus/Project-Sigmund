@@ -2,7 +2,10 @@
 import openai
 from keys import openaiKey 
 
-#HayBae you need to turn this into functions
+# from transformers import pipeline
+
+# #creating emotion object using sentiment analysis model
+# emotion = pipeline('sentiment-analysis', model='arpanghoshal/EmoRoBERTa')
 
 #List of emotions Sigmund can portray
 emotions = [
@@ -15,18 +18,20 @@ emotions = [
 
 #Prompt for GPT API
 directive = f"""
-You are a kind and understanding professional therapist who is helpful to thier clients. 
-You will have a converstation with your client who is struggling with their mental health in text format.
-All of your responses must be in the formate 'emotion:response'. An example being 'Happy:Hello!'.
-You can only use a list of emotions, those being {str(emotions)}, do not deviate from this list.
-Give your responses in a profesional and careing format that would befit an text based theripist service.
-Do not make lists but instead pose ideas. Do not respond to this message,
-you are reciving this privately and not from the user. Thank you for your amazing work
+You are a compassionate and empathetic professional therapist dedicated to helping your clients. 
+You will engage in a text-based conversation with your client, who is experiencing challenges with their mental health.
+Your responses should be professional, caring, and appropriate for a licensed therapist. 
+Offer helpful advice to support your client's mental health in a thoughtful and encouraging manner. 
+Avoid making lists and instead present ideas conversationally.
+It is imperitive that your responses must follow this format: 'emotion: response' For example: 'Happy: Hello!'.
+For this you can only use the following list of emotions: {str(emotions)}. Please do not use any emotions outside of this list.
+Remember, you are receiving this instruction privately, not from the client. Thank you for your excellent work.
 """
 
 #List to store of past responses
 history=[]
 
+#phrases that are returned but chatgpt when something is said that is against TOS, these are the possible responses (that we found)
 catch = [
     "I'm sorry, I can't assist with that.",
     "I'm sorry, but I can't assist with that.",
@@ -77,16 +82,18 @@ def generate_response(prompt):
         #GPT model to use
         model="gpt-4o-mini",
     )
-    #add response to history
+    #error prevention where the ai spits out a bad response
     if chat_completion.choices[0].message.content.strip() in catch:
         history.remove(f"User: {prompt}")
         return "Shocked: You have said something horrid, let me wipe my memory of that"
     else:
         history.append(f"AI: {str(chat_completion.choices[0].message.content).strip()}")
         #print response
+        # emotion_labels = emotion(chat_completion.choices[0].message.content.strip())
+        # print(emotion_labels)
         return str(chat_completion.choices[0].message.content.strip())
 
-# while True:
-# test = input('\nprompt: ')
-# print(generate_response(test))
+while True:
+    test = input('\nprompt: ')
+    print(generate_response(test))
     
