@@ -21,7 +21,7 @@ while True:
     if userWords.lower() == resetString.lower():
         aiFile.history = []
         print("resetting memory")
-        Testaudio.SpeakText("resetting memory")
+        inputOutput.SpeakText("resetting memory")
     else:
         output = aiFile.generate_response(userWords)
         emotion, content = output.split(":")
@@ -33,5 +33,5 @@ while True:
         #Funky output
         inputOutput.SpeakText(str(content.strip()))
         print(str(content.strip()))
-        Testaudio.SpeakText(str(content.strip()))
+        inputOutput.SpeakText(str(content.strip()))
         #^replace with actual output func
