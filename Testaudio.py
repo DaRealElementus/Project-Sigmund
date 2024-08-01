@@ -8,6 +8,9 @@ import pyttsx3
 # Initialize the recognizer 
 r = sr.Recognizer() 
 
+#LANI OVER HERE
+#https://medium.com/@nimritakoul01/offline-speech-to-text-in-python-f5d6454ecd02
+
 # Function to convert text to
 # speech
 def SpeakText(command):
