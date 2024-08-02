@@ -1,6 +1,7 @@
 import vosk
 import pyaudio
 import json
+import keyboard
 
 # Here I have downloaded this model to my PC, extracted the files 
 # and saved it in local directory
@@ -12,30 +13,32 @@ model = vosk.Model(lang="en-us")
 rec = vosk.KaldiRecognizer(model, 16000)
 p = pyaudio.PyAudio()
 stream = p.open(format=pyaudio.paInt16,
-                channels=1,
-                rate=16000,
-                input=True,
-                frames_per_buffer=8192)
+        channels=2,
+        rate=48000,
+        input=True,
+        frames_per_buffer=2048,
+        input_device_index=1)
 
-print("Listening for speech. Say 'Terminate' to stop.")
 # Start streaming and recognize speech
-while True:
-    data = stream.read(4096)#read in chunks of 4096 bytes
-    if rec.AcceptWaveform(data):#accept waveform of input voice
-        # Parse the JSON result and get the recognized text
-        result = json.loads(rec.Result())
-        recognized_text = result['text']
-        print(recognized_text)
+def Listen(first=False):
+    if not first:
+        full_text = ''
+        while not keyboard.is_pressed(' '):
+            pass
         
-        # Check for the termination keyword
-        if "terminate" in recognized_text.lower():
-            print("Termination keyword detected. Stopping...")
-            break
+        print("Listening started")
+        while True:
+            data = stream.read(4096, False)#read in chunks of 4096 bytes
+            if rec.AcceptWaveform(data):#accept waveform of input voice
+                # Parse the JSON result and get the recognized text
+                result = json.loads(rec.Result())
+                recognized_text = result['text']
+                full_text += recognized_text
+                
+            if not keyboard.is_pressed(' '):
+                break
+        print("listening stopped")
 
-# Stop and close the stream
-stream.stop_stream()
-stream.close()
-
-# Terminate the PyAudio object
-p.terminate()
-
+        return full_text
+    else:
+        return 'NULL'

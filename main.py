@@ -3,6 +3,7 @@ import aiFile
 import keys
 import serial
 import inputOutput
+import vosktext
 
 resetString = "debug_reset_EmergencyShower"
 
@@ -11,12 +12,12 @@ ser.baudrate = 19200
 ser.port = 'COM1'
 
 #This prgram will not show emotion, instead un-comment the code at the bottom of aiFile.py and run that
-
+userWords = vosktext.Listen(True)
 while True:
     #Funky input
-    print("Listening...")
-    userWords = inputOutput.recogniseAudio()
+    userWords = vosktext.Listen()
     print("Complete")
+    print(userWords)
     
     #^ replace with actual input func
     if userWords.lower() == resetString.lower():
@@ -25,13 +26,13 @@ while True:
         inputOutput.SpeakText("resetting memory")
     else:
         output = aiFile.generate_response(userWords)
-        emotion, content = output.split(":")
-        emotion.strip()
+        # emotion, content = output.split(":")
+        # emotion.strip()
         # if emotion in aiFile.emotions:
         #     emotion = str.encode(emotion)
         #     ser.write(emotion)
         
         #Funky output
-        print(str(content.strip()))
-        inputOutput.SpeakText(str(content.strip()))
+        print(str(output.strip()))
+        inputOutput.SpeakText(str(output.strip()))
         #^replace with actual output func
