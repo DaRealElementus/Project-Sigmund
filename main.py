@@ -12,7 +12,6 @@ ser.baudrate = 19200
 ser.port = 'COM1'
 
 #This prgram will not show emotion, instead un-comment the code at the bottom of aiFile.py and run that
-userWords = vosktext.Listen(True)
 while True:
     #Funky input
     userWords = vosktext.Listen()
