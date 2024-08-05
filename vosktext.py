@@ -10,25 +10,20 @@ import keyboard
 # Initialize the model with model-path
 model = vosk.Model(lang="en-us")
 
-rec = vosk.KaldiRecognizer(model, 16000)
-p = pyaudio.PyAudio()
-
+rec = vosk.KaldiRecognizer(model, 48000)
+p = pyaudio.PyAudio()        
 
 # Start streaming and recognize speech
-def Listen():
-        full_text = ''
-        while not keyboard.is_pressed(' '):
-            pass
-        stream = p.open(format=pyaudio.paInt16,
-        channels=2,
-        rate=48000,
-        input=True,
-        frames_per_buffer=2048,
-        input_device_index=1)
-        print("Listening started")
+def Listen():                                              
+    full_text = ''
+    while not keyboard.is_pressed(' '):
+        pass
+    print("Listening started")
+    stream = p.open(format=pyaudio.paInt16, channels=1, rate=48000, input=True, frames_per_buffer=2048, input_device_index=1)
+    try:
         while True:
-            data = stream.read(4096, False)#read in chunks of 4096 bytes
-            if rec.AcceptWaveform(data):#accept waveform of input voice
+            data = stream.read(2048, False)  # read in chunks of 2048 bytes
+            if rec.AcceptWaveform(data):  # accept waveform of input voice
                 # Parse the JSON result and get the recognized text
                 result = json.loads(rec.Result())
                 recognized_text = result['text']
@@ -36,7 +31,10 @@ def Listen():
                 
             if not keyboard.is_pressed(' '):
                 break
-        print("listening stopped")
+    finally:
         stream.stop_stream()
         stream.close()
-        return full_text
+
+while True:
+     funi = Listen()
+     print(funi)
