@@ -15,7 +15,6 @@ ser.port = 'COM1'
 while True:
     #Funky input
     userWords = vosktext.Listen()
-    print("Complete")
     print(userWords)
     
     #^ replace with actual input func
@@ -25,13 +24,13 @@ while True:
         inputOutput.SpeakText("resetting memory")
     else:
         output = aiFile.generate_response(userWords)
-        # emotion, content = output.split(":")
+        emotion, content = output.split(":")
         # emotion.strip()
         # if emotion in aiFile.emotions:
         #     emotion = str.encode(emotion)
         #     ser.write(emotion)
         
         #Funky output
-        print(str(output.strip()))
-        inputOutput.SpeakText(str(output.strip()))
+        print(str(content.strip()))
+        inputOutput.SpeakText(str(content.strip()))
         #^replace with actual output func

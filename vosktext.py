@@ -18,23 +18,21 @@ def Listen():
     full_text = ''
     while not keyboard.is_pressed(' '):
         pass
-    print("Listening started")
-    stream = p.open(format=pyaudio.paInt16, channels=1, rate=48000, input=True, frames_per_buffer=2048, input_device_index=1)
+    stream = p.open(format=pyaudio.paInt16, channels=1, rate=48000, input=True, frames_per_buffer=2048)
     try:
         while True:
             data = stream.read(2048, False)  # read in chunks of 2048 bytes
-            if rec.AcceptWaveform(data):  # accept waveform of input voice
-                # Parse the JSON result and get the recognized text
-                result = json.loads(rec.Result())
-                recognized_text = result['text']
-                full_text += recognized_text
-                
+            if rec.AcceptWaveform(data):
+                res = json.loads(rec.Result())
+            else:
+                res = json.loads(rec.PartialResult())
             if not keyboard.is_pressed(' '):
                 break
     finally:
         stream.stop_stream()
         stream.close()
+        return json.loads(rec.FinalResult())['text']
 
-while True:
-     funi = Listen()
-     print(funi)
+# while True:
+#      funi = Listen()
+#      print(funi)
