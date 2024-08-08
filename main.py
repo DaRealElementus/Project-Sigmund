@@ -1,9 +1,8 @@
 '''Main file, this is the one that is being run'''
 import aiFile
-import inputOutputSystem
-import keys
 import serial
 import inputOutput
+import vosktext
 
 resetString = "debug_reset_EmergencyShower"
 
@@ -12,20 +11,11 @@ ser.baudrate = 19200
 ser.port = 'COM1'
 
 #This prgram will not show emotion, instead un-comment the code at the bottom of aiFile.py and run that
-
 while True:
     #Funky input
-    heard = False
-    while heard == False:
-        try:
-            print("Listening...")
-            userWords = inputOutput.recogniseAudio()
-            heard = True
-        except:
-            print("Sorry I couldn't hear you, could you please say that again?")
-            inputOutput.SpeakText("Sorry I couldn't hear you, could you please say that again?")
-        
-
+    userWords = vosktext.Listen()
+    print(userWords)
+    
     #^ replace with actual input func
     if userWords.lower() == resetString.lower():
         aiFile.history = []
@@ -34,7 +24,7 @@ while True:
     else:
         output = aiFile.generate_response(userWords)
         emotion, content = output.split(":")
-        emotion.strip()
+        # emotion.strip()
         # if emotion in aiFile.emotions:
         #     emotion = str.encode(emotion)
         #     ser.write(emotion)
