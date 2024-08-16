@@ -6,10 +6,10 @@ def map_val(x, in_min, in_max, out_min, out_max):
     return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
 
 # Servo setup
-myServo1 = Servo(11)
-myServo2 = Servo(10)
-myServo3 = Servo(9)
-myServo4 = Servo(8)
+myServo1 = Servo(11) #X value
+myServo2 = Servo(10) #Y value
+myServo3 = Servo(9)  #blink servo?
+myServo4 = Servo(8)  #Note: inverted blink servo? if so why?
 
 x_direction = 0
 y_direction = 0
@@ -26,6 +26,12 @@ def setup():
     global y_direction
 
 def loop():
+    #Note: Im not sure you understand that a loop func is going to loop forever, so dont put code thatll run once and then enter a while loop
+
+
+    #Note: Removed the loop here as this is already being run in a loop and i dont want to multithread >:( although we might have to if we want eyes to update at the same time as recieving input
+    #Note: We wouldnt have this multithreading dilema if we used an Ard
+
     # Replace these values with actual sensor readings
     x_pos = 512  # Example placeholder value
     y_pos = 512  # Example placeholder value
@@ -34,12 +40,13 @@ def loop():
     x_direction = map_val(x_pos, 0, 1023, -1, 1)
     y_direction = map_val(y_pos, 0, 1023, -1, 1)
 
+    #Note: why custom funcs for each direction? seems kinda useless tbh
     lr_direction()
     ud_direction()
 
     if (time() - blinkinterval) > 3.2:  # Converted milliseconds to seconds
         blink()
-
+    #Note: Turns out we do have to multithread becuase you put in sleep values, there are more efficient and maluable ways of doing this....
       # Add some delay for stability
 
 def blink():
@@ -60,3 +67,5 @@ def ud_direction():
 # if __name__ == '__main__':
 #     setup()
 #     loop()
+
+#Note: standalone, this code is fine and works perfectly, when we merge it with the rest of the system it wont work, can you please fix this or i will be left cleaning up your mess
