@@ -1,17 +1,15 @@
 '''Main file, this is the one that is being run'''
 import aiFile
-import serial
+import motory
 import inputOutput
 import vosktext
 
 resetString = "debug_reset_EmergencyShower"
-
-ser = serial.Serial()
-ser.baudrate = 19200                                     
-ser.port = 'COM1'
+motory.setup()
 
 #This prgram will not show emotion, instead un-comment the code at the bottom of aiFile.py and run that
 while True:
+    motory.loop()
     #Funky input
     userWords = vosktext.Listen()
     print(userWords)

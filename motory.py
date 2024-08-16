@@ -21,27 +21,26 @@ def setup():
     myServo2.value = None
     myServo3.value = None
     myServo4.value = None
-
-def loop():
     global blinkinterval
     global x_direction
     global y_direction
-    while True:
-        # Replace these values with actual sensor readings
-        x_pos = 512  # Example placeholder value
-        y_pos = 512  # Example placeholder value
 
-        # Map x_pos and y_pos values to servo range (assume -1 to 1 for gpiozero Servo)
-        x_direction = map_val(x_pos, 0, 1023, -1, 1)
-        y_direction = map_val(y_pos, 0, 1023, -1, 1)
+def loop():
+    # Replace these values with actual sensor readings
+    x_pos = 512  # Example placeholder value
+    y_pos = 512  # Example placeholder value
 
-        lr_direction()
-        ud_direction()
+    # Map x_pos and y_pos values to servo range (assume -1 to 1 for gpiozero Servo)
+    x_direction = map_val(x_pos, 0, 1023, -1, 1)
+    y_direction = map_val(y_pos, 0, 1023, -1, 1)
 
-        if (time() - blinkinterval) > 3.2:  # Converted milliseconds to seconds
-            blink()
+    lr_direction()
+    ud_direction()
 
-        sleep(0.1)  # Add some delay for stability
+    if (time() - blinkinterval) > 3.2:  # Converted milliseconds to seconds
+        blink()
+
+      # Add some delay for stability
 
 def blink():
     # Assuming the values for blinking are set to specific angles
@@ -58,6 +57,6 @@ def lr_direction():
 def ud_direction():
     myServo2.value = y_direction
 
-if __name__ == '__main__':
-    setup()
-    loop()
+# if __name__ == '__main__':
+#     setup()
+#     loop()
