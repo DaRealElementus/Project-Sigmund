@@ -3,8 +3,12 @@ import aiFile
 import serial
 import inputOutput
 import vosktext
+def play_movie(path):
+        from os import startfile
+        startfile(path)
 
 resetString = "debug_reset_EmergencyShower"
+singString = "me a song"
 
 ser = serial.Serial()
 ser.baudrate = 19200                                     
@@ -21,6 +25,9 @@ while True:
         aiFile.history = []
         print("resetting memory")
         inputOutput.SpeakText("resetting memory")
+    if userWords.lower().__contains__(singString.lower()):
+        play_movie("Perfectly Fine.mp4")
+
     else:
         output = aiFile.generate_response(userWords)
         emotion, content = output.split(":")
