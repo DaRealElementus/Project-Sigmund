@@ -1,15 +1,18 @@
 '''Main file, this is the one that is being run'''
 import aiFile
-import motory
+import motorytest
 import inputOutput
 import vosktext
+import threading
 
 resetString = "debug_reset_EmergencyShower"
-motory.setup()
+#motory.setup()
+thread = threading.Thread(target=motorytest)
+thread.start()
 
 #This prgram will not show emotion, instead un-comment the code at the bottom of aiFile.py and run that
 while True:
-    motory.loop()
+    #motory.loop()
     #Funky input
     userWords = vosktext.Listen()
     print(userWords)
