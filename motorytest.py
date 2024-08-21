@@ -1,7 +1,6 @@
 import time
 import asyncio
 import pigpio
-import RPi.GPIO as GPIO 
 from decibeltest import *
 
 
@@ -24,42 +23,28 @@ y_direction = 0
 blinkinterval = time.time()  # Initialize with current time
 
 emotion = "IDK"
+Pos_emo = {
+    "Happy":[255,255, 0], # yellow
+    "Sad":[139, 156, 176], # Deep blue
+    "Shocked":[255, 255, 255], # white
+    "Understanding":[161, 161, 240], # light blue
+    "Concerned":[223, 7, 247] # purple
+}
 
 # RGB LED Pin Definitions
 redPin = 12
 greenPin = 19
 bluePin = 13
 
-# Initialize GPIO
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(redPin, GPIO.OUT)
-GPIO.setup(greenPin, GPIO.OUT)
-GPIO.setup(bluePin, GPIO.OUT)
 
-def set_white():
-    GPIO.output(redPin, GPIO.LOW)
-    GPIO.output(greenPin, GPIO.LOW)
-    GPIO.output(bluePin, GPIO.LOW)
-
-def set_blue():
-    GPIO.output(redPin, GPIO.HIGH)
-    GPIO.output(greenPin, GPIO.HIGH)
-    GPIO.output(bluePin, GPIO.LOW)
-
-def set_yellow():
-    GPIO.output(redPin, GPIO.LOW)
-    GPIO.output(greenPin, GPIO.LOW)
-    GPIO.output(bluePin, GPIO.HIGH)
-
-def set_light_blue():
-    GPIO.output(redPin, GPIO.HIGH)
-    GPIO.output(greenPin, GPIO.LOW)
-    GPIO.output(bluePin, GPIO.LOW)
-
-def set_purple():
-    GPIO.output(redPin, GPIO.LOW)
-    GPIO.output(greenPin, GPIO.HIGH)
-    GPIO.output(bluePin, GPIO.LOW)
+def set_colour(Red=int, Green=int, Blue=int):
+    Red = map_val(Red, 0, 255, 0, 1023)
+    Green = map_val(Green, 0, 255, 0, 1023)
+    Blue = map_val(Blue, 0, 255, 0, 1023)
+    pi.set_servo_pulsewidth(redPin, Red)
+    pi.set_servo_pulsewidth(greenPin, Green)
+    pi.set_servo_pulsewidth(bluePin, Blue)
+    
 
 def setup():
     # Setup code for Raspberry Pi
@@ -67,6 +52,10 @@ def setup():
     pi.set_servo_pulsewidth(SERVO_PIN2, 0)
     pi.set_servo_pulsewidth(SERVO_PIN3, 0)
     pi.set_servo_pulsewidth(SERVO_PIN4, 0)
+    pi.set_servo_pulsewidth(redPin, 0)
+    pi.set_servo_pulsewidth(greenPin, 0)
+    pi.set_servo_pulsewidth(bluePin, 0)
+    
 
 async def loop():
     global blinkinterval
@@ -89,17 +78,8 @@ async def loop():
             blinkinterval = time.time()  # Update blink interval time
 
         #Change RGB LED color based on emotion
-        if emotion == "Happy":
-            set_yellow
-        if emotion == "Sad":
-            set_blue
-        if emotion == "Shocked":
-            set_white
-        if emotion == "Understanding":
-            set_light_blue
-        if emotion == "Concerned":
-            set_purple
-        await asyncio.sleep(0.1)
+        colours = Pos_emo[emotion]
+        set_colour(colours[0], colours[1], colours[3])
 
 async def blink():
     # Assuming the values for blinking are set to specific pulse widths
@@ -118,7 +98,4 @@ def ud_direction():
 
 if __name__ == '__main__':
     setup()
-    try:
-        asyncio.run(loop())  # Start the asyncio event loop
-    finally:
-        GPIO.cleanup()  # Clean up GPIO on exit
+    asyncio.run(loop())  # Start the asyncio event loop
