@@ -25,10 +25,9 @@ while True:
     else:
         output = aiFile.generate_response(userWords)
         emotion, content = output.split(":")
-        # emotion.strip()
-        # if emotion in aiFile.emotions:
-        #     emotion = str.encode(emotion)
-        #     ser.write(emotion)
+        emotion.strip()
+        if emotion in aiFile.emotions:
+            motorytest.emotion = emotion
         
         #Funky output
         print(str(content.strip()))
