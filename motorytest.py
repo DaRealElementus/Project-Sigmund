@@ -4,6 +4,15 @@ import pigpio
 import RPi.GPIO as GPIO
 from decibeltest import *
 
+
+#Okay so this is good rylan, it will work once you get the raspberry sorted
+#you do need to add a variable that stores the current emotion and then displays that with the RGB LEDs
+#it shouldnt be too hard ass you can create a dict with the RGB values stored in them, and both LEDs use the same value so it should only be one Pin
+# - Alex
+
+#also test to make sure that you async and threading are both working, thats the only thing im worried about.
+
+
 # Define a map function similar to Arduino's
 def map_val(x, in_min, in_max, out_min, out_max):
     return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
