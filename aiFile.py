@@ -9,11 +9,11 @@ from keys import openaiKey
 
 #List of emotions Sigmund can portray
 emotions = [
-    "Happy",
-    "Sad",
-    "Shocked",
-    "Understanding",
-    "Concerned"
+    "Happy", # yellow
+    "Sad", # Deep blue
+    "Shocked", # white
+    "Understanding", # light blue
+    "Concerned" # purple
 ]
 
 #Prompt for GPT API
