@@ -43,19 +43,19 @@ def Listen():
     while not keyboard.is_pressed(' '):
         pass
     stream = p.open(format=pyaudio.paInt16, channels=1, rate=48000, input=True, frames_per_buffer=2048)
-    stream1 = p.open(format=pyaudio.paInt16, channels=1, rate=48000, input=True,
-                 frames_per_buffer=2048)
-    stream2 = p.open(format=pyaudio.paInt16, channels=1, rate=48000, input=True,
-                 frames_per_buffer=2048)
+    # stream1 = p.open(format=pyaudio.paInt16, channels=1, rate=48000, input=True,
+    #              frames_per_buffer=2048)
+    # stream2 = p.open(format=pyaudio.paInt16, channels=1, rate=48000, input=True,
+    #              frames_per_buffer=2048)
     try:
         while True:
             data = stream.read(2048, False)  # read in chunks of 2048 bytes
-            data1 = stream1.read(2048)
-            data2 = stream2.read(2048)
-            # Calculate and print decibel levels for both
-            decibels1 = calculate_decibels(data1)
-            decibels2 = calculate_decibels(data2)
-            x_difference = decibels1 - decibels2
+            # data1 = stream1.read(2048)
+            # data2 = stream2.read(2048)
+            # # Calculate and print decibel levels for both
+            # decibels1 = calculate_decibels(data1)
+            # decibels2 = calculate_decibels(data2)
+            # x_difference = decibels1 - decibels2
 
             if rec.AcceptWaveform(data):
                 res = json.loads(rec.Result())
@@ -66,10 +66,10 @@ def Listen():
     finally:
         stream.stop_stream()
         stream.close()
-        stream1.stop_stream()
-        stream2.stop_stream()
-        stream1.close()
-        stream2.close()
+        # stream1.stop_stream()
+        # stream2.stop_stream()
+        # stream1.close()
+        # stream2.close()
         return json.loads(rec.FinalResult())['text']
 
 # while True:

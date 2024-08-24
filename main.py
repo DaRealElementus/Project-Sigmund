@@ -3,7 +3,6 @@ import aiFile
 import motorytest
 import inputOutput
 import vosktext
-import threading
 import asyncio
 
 resetString = "debug_reset_EmergencyShower"
