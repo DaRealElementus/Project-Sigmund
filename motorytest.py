@@ -1,7 +1,7 @@
 import time
 import asyncio
 import pigpio
-from decibeltest import *
+#from decibeltest import x_difference
 
 #yk you can use PWM For the RGB right? which removes the need for RPi.GPIO, thus reducing lag and making our program more efficient
 
@@ -20,7 +20,7 @@ x_direction = 0
 y_direction = 0
 blinkinterval = time.time()  # Initialize with current time
 
-emotion = "IDK"
+emotion = "Understanding"
 Pos_emo = {
     "Happy":[255,255, 0], # yellow
     "Sad":[139, 156, 176], # Deep blue
@@ -34,6 +34,7 @@ redPin = 12
 greenPin = 19
 bluePin = 13
 
+x_difference = 1000
 
 def set_colour(Red=int, Green=int, Blue=int):
     Red = map_val(Red, 0, 255, 0, 1023)
@@ -58,25 +59,25 @@ async def loop():
     global blinkinterval
     global x_direction
     global y_direction
-    while True:
-        # Replace these values with actual sensor readings
-        x_pos = x_difference
-        # y_pos = 512
+    #while True:
+    # Replace these values with actual sensor readings
+    x_pos = x_difference
+    # y_pos = 512
 
-        # Map x_pos and y_pos values to servo pulse width range (500 to 2500 microseconds)
-        x_direction = map_val(x_pos, 0, 1023, 500, 2500)
-        # y_direction = map_val(y_pos, 0, 1023, 500, 2500)
+    # Map x_pos and y_pos values to servo pulse width range (500 to 2500 microseconds)
+    x_direction = map_val(x_pos, 0, 1023, 500, 2500)
+    # y_direction = map_val(y_pos, 0, 1023, 500, 2500)
 
-        lr_direction()
-        # ud_direction()
+    lr_direction()
+    # ud_direction()
 
-        if (time.time() - blinkinterval) > 3.2:  # Converted milliseconds to seconds
-            await blink()
-            blinkinterval = time.time()  # Update blink interval time
+    if (time.time() - blinkinterval) > 3.2:  # Converted milliseconds to seconds
+        await blink()
+        blinkinterval = time.time()  # Update blink interval time
 
-        #Change RGB LED color based on emotion
-        colours = Pos_emo[emotion]
-        set_colour(colours[0], colours[1], colours[3])
+    #Change RGB LED color based on emotion
+    colours = Pos_emo[emotion]
+    set_colour(colours[0], colours[1], colours[2])
 
 async def blink():
     # Assuming the values for blinking are set to specific pulse widths
@@ -93,6 +94,6 @@ def lr_direction():
 def ud_direction():
     pi.set_servo_pulsewidth(SERVO_PIN2, y_direction)
 
-if __name__ == '__main__':
-    setup()
-    asyncio.run(loop())  # Start the asyncio event loop
+#if __name__ == '__main__':
+#    setup()
+#    asyncio.run(loop())  # Start the asyncio event loop

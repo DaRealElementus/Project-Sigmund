@@ -2,19 +2,36 @@ import pyaudio
 import numpy as np
 
 # Constants for the audio stream
-CHUNK = 1024  # Number of samples per frame
+CHUNK = 2048  # Number of samples per frame
 FORMAT = pyaudio.paInt16  # Audio format (16-bit PCM)
 CHANNELS = 1  # Single channel for microphone
-RATE = 44100  # Sample rate (samples per second)
+RATE = 48000  # Sample rate (samples per second)
 
 # Function to calculate the decibel level from audio data
+#def calculate_decibels(data):
+    #numpy_data = np.frombuffer(data, dtype=np.int16)
+    #rms = np.sqrt(np.mean(numpy_data**2))
+    #if rms > 0:
+        #decibels = 20 * np.log10(rms)
+    #else:
+        #decibels = -np.inf  # Handle case where RMS is 0
+    #return decibels
+
 def calculate_decibels(data):
     numpy_data = np.frombuffer(data, dtype=np.int16)
+    
+    # Normalize the data to prevent overflow
+    numpy_data = numpy_data / np.max(np.abs(numpy_data), axis=0)
+
+    if numpy_data.size == 0:
+        return -np.inf
+
     rms = np.sqrt(np.mean(numpy_data**2))
-    if rms > 0:
-        decibels = 20 * np.log10(rms)
-    else:
-        decibels = -np.inf  # Handle case where RMS is 0
+
+    if np.isnan(rms) or rms <= 0:
+        return -np.inf
+
+    decibels = 20 * np.log10(rms)
     return decibels
 
 # Initialize PyAudio
@@ -28,19 +45,23 @@ def find_device_index(p, device_name):
     return None
 
 # Replace 'Mic1' and 'Mic2' with actual names or indices of your microphones
-mic1_device_index = find_device_index(p, 'Mic1')
-mic2_device_index = find_device_index(p, 'Mic2')
+#mic1_device_index = find_device_index(p, '1')
+#mic2_device_index = find_device_index(p, 'Primary Sound Capture Driver')
 
-if mic1_device_index is None or mic2_device_index is None:
-    print("Could not find both microphones.")
-    p.terminate()
-    exit()
+#if mic1_device_index is None or mic2_device_index is None:
+    #print("Could not find both microphones.")
+    #p.terminate()
+    #exit()
 
 # Open streams for each microphone
+#stream1 = p.open(format=FORMAT, channels=CHANNELS, rate=RATE, input=True,
+                 #input_device_index=mic1_device_index, frames_per_buffer=CHUNK)
+#stream2 = p.open(format=FORMAT, channels=CHANNELS, rate=RATE, input=True,
+                 #input_device_index=mic2_device_index, frames_per_buffer=CHUNK)
 stream1 = p.open(format=FORMAT, channels=CHANNELS, rate=RATE, input=True,
-                 input_device_index=mic1_device_index, frames_per_buffer=CHUNK)
+                 frames_per_buffer=CHUNK)
 stream2 = p.open(format=FORMAT, channels=CHANNELS, rate=RATE, input=True,
-                 input_device_index=mic2_device_index, frames_per_buffer=CHUNK)
+                 frames_per_buffer=CHUNK)
 
 print("Recording from both microphones... Press Ctrl+C to stop.")
 
@@ -55,7 +76,7 @@ try:
         decibels2 = calculate_decibels(data2)
         x_difference = decibels1 - decibels2
         
-        print(f"Mic1 Decibel Level: {decibels1:.2f} dB - Mic2 Decibel Level: {decibels2:.2f} dB - Difference: {x_difference} dB")
+        #print(f"Mic1 Decibel Level: {decibels1:.2f} dB - Mic2 Decibel Level: {decibels2:.2f} dB - Difference: {x_difference} dB")
         #print(f"Mic2 Decibel Level: {decibels2:.2f} dB")
 except KeyboardInterrupt:
     print("Recording stopped.")
