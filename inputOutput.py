@@ -2,13 +2,15 @@
 import pyttsx3 
 
 
+engine = pyttsx3.init()
+voices = engine.getProperty('voices')
+engine.setProperty('voice', voices[12].id)
+engine.setProperty('rate', 155)
+    
+
 # Function to convert text to
 # speech
 def SpeakText(command):
     # Initialize the engine
-    engine = pyttsx3.init()
-    engine.setProperty('voice', "english-us")
     engine.say(command) 
     engine.runAndWait()
-    
-

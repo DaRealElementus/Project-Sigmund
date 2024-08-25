@@ -22,11 +22,11 @@ blinkinterval = time.time()  # Initialize with current time
 
 emotion = "Understanding"
 Pos_emo = {
-    "Happy":[255,255, 0], # yellow
-    "Sad":[139, 156, 176], # Deep blue
-    "Shocked":[255, 255, 255], # white
-    "Understanding":[161, 161, 240], # light blue
-    "Concerned":[223, 7, 247] # purple
+    "happy":[255,255, 0], # yellow
+    "sad":[139, 156, 176], # Deep blue
+    "shocked":[255, 255, 255], # white
+    "understanding":[161, 161, 240], # light blue
+    "concerned":[223, 7, 247] # purple
 }
 
 # RGB LED Pin Definitions
@@ -76,7 +76,7 @@ async def loop():
         blinkinterval = time.time()  # Update blink interval time
 
     #Change RGB LED color based on emotion
-    colours = Pos_emo[emotion]
+    colours = Pos_emo[emotion.lower()]
     set_colour(colours[0], colours[1], colours[2])
 
 async def blink():

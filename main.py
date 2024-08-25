@@ -11,9 +11,8 @@ resetString = "debug_reset_EmergencyShower"
 #thread.start()
 
 #This prgram will not show emotion, instead un-comment the code at the bottom of aiFile.py and run that
-async def main():
+def main():
     while True:
-        await motorytest.loop()
         #Funky input
         userWords = vosktext.Listen()
         print(userWords)
@@ -25,7 +24,11 @@ async def main():
             inputOutput.SpeakText("resetting memory")
         else:
             output = aiFile.generate_response(userWords)
-            emotion, content = output.split(":")
+            try:
+                emotion, content = output.split(":")
+            except ValueError:
+                content = output
+                emotion = "happy"
             emotion.strip()
             if emotion in aiFile.emotions:
                 motorytest.emotion = emotion
@@ -36,4 +39,5 @@ async def main():
             #^replace with actual output func
 
 if __name__ == '__main__':
-    asyncio.run(main())  # Start the asyncio event loop
+    asyncio.run(motorytest.loop())  # Start the asyncio event loop
+    main()
