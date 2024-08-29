@@ -4,8 +4,13 @@ import motorytest
 import inputOutput
 import vosktext
 import asyncio
+import os
 
 resetString = "debug_reset_EmergencyShower"
+SongString = "Me a Song"
+def play_movie(path):
+        os.startfile(path)
+
 #motory.setup()
 #thread = threading.Thread(target=motorytest)
 #thread.start()
@@ -22,6 +27,8 @@ def main():
             aiFile.history = []
             print("resetting memory")
             inputOutput.SpeakText("resetting memory")
+        elif userWords.lower() == SongString.lower():
+            play_movie("Perfectly Fine.mp4")
         else:
             output = aiFile.generate_response(userWords)
             try:
