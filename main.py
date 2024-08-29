@@ -16,7 +16,6 @@ def main():
         #Funky input
         userWords = vosktext.Listen()
         print(userWords)
-        
         #^ replace with actual input func
         if userWords.lower() == resetString.lower():
             aiFile.history = []

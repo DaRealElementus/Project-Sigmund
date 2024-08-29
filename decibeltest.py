@@ -21,7 +21,7 @@ def calculate_decibels(data):
     numpy_data = np.frombuffer(data, dtype=np.int16)
     
     # Normalize the data to prevent overflow
-    numpy_data = numpy_data / np.max(np.abs(numpy_data), axis=0)
+    #numpy_data = numpy_data / np.max(np.abs(numpy_data), axis=0)
 
     if numpy_data.size == 0:
         return -np.inf
@@ -76,7 +76,7 @@ try:
         decibels2 = calculate_decibels(data2)
         x_difference = decibels1 - decibels2
         
-        #print(f"Mic1 Decibel Level: {decibels1:.2f} dB - Mic2 Decibel Level: {decibels2:.2f} dB - Difference: {x_difference} dB")
+        print(f"Mic1 Decibel Level: {decibels1:.2f} dB - Mic2 Decibel Level: {decibels2:.2f} dB - Difference: {x_difference} dB")
         #print(f"Mic2 Decibel Level: {decibels2:.2f} dB")
 except KeyboardInterrupt:
     print("Recording stopped.")
