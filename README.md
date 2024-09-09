@@ -14,13 +14,8 @@ Mr Griffin - The man that allowed for this insane idea to possibly happen. <br>
 
 
 # To-do
-
-* Converge everything into main.py (So that it works)
-* Finalize construction
 * Test (lots of it)
-* Record
-* Edit
-* Post
+* Present
 
 # Done
 * OpenAi API Key
@@ -29,3 +24,5 @@ Mr Griffin - The man that allowed for this insane idea to possibly happen. <br>
 * Intergrate the Microphone/Speaker array
 * Design the face (properly, incl Eyes, light 4 mouth, light 4 cheeks)
 * Motorize the face (which includes setting up the lights and designing proper code)
+* Converge everything into main.py (So that it works)
+* Finalize construction
