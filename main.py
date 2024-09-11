@@ -30,9 +30,9 @@ def main():
                 emotion = "happy"
             emotion.strip()
             if emotion in aiFile.emotions:
-                motorytest.emotion = emotion
-            
-            #Funky output
+                colours = motorytest.Pos_emo[emotion.lower()]
+                motorytest.set_colour(colours[0], colours[1], colours[2])
+
             print(str(content.strip()))
             inputOutput.SpeakText(str(content.strip()))
             #^replace with actual output func
