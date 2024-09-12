@@ -11,10 +11,18 @@ def map_val(x, in_min, in_max, out_min, out_max):
 
 # Initialize pigpio and define the GPIO pins for the servos
 pi = pigpio.pi()
-SERVO_PIN1 = 17  # GPIO17 (Pin 11)
-SERVO_PIN2 = 18  # GPIO27 (Pin 13)
-SERVO_PIN3 = 22  # GPIO22 (Pin 15)
-SERVO_PIN4 = 23  # GPIO23 (Pin 16)
+SERVO_PIN1 = 3
+SERVO_PIN2 = 18
+#SERVO_PIN3 = 22  # GPIO22 (Pin 15)
+#SERVO_PIN4 = 23  # GPIO23 (Pin 16)
+
+pi.set_mode(SERVO_PIN1, pigpio.OUTPUT)
+pi.set_mode(SERVO_PIN2, pigpio.OUTPUT)
+
+pi.set_PWM_frequency(SERVO_PIN1, 50)
+pi.set_PWM_frequency(SERVO_PIN2, 50)
+pi.set_PWM_range(SERVO_PIN1, 20000)
+pi.set_PWM_range(SERVO_PIN2, 20000)
 
 x_direction = 0
 y_direction = 0
@@ -26,7 +34,8 @@ Pos_emo = {
     "sad":[139, 156, 176], # Deep blue
     "shocked":[255, 255, 255], # white
     "understanding":[50, 50, 240], # light blue
-    "concerned":[223, 7, 247] # purple
+    "concerned":[223, 7, 247], # purple
+    "blush":[255, 45, 150] #pink
 }
 
 # RGB LED Pin Definitions
@@ -43,13 +52,6 @@ def set_colour(Red=int, Green=int, Blue=int):
     pi.set_PWM_dutycycle(redPin, Red)
     pi.set_PWM_dutycycle(greenPin, Green)
     pi.set_PWM_dutycycle(bluePin, Blue)
-
-def setup():
-    # Setup code for Raspberry Pi
-    pi.set_servo_pulsewidth(SERVO_PIN1, 0)
-    pi.set_servo_pulsewidth(SERVO_PIN2, 0)
-    pi.set_servo_pulsewidth(SERVO_PIN3, 0)
-    pi.set_servo_pulsewidth(SERVO_PIN4, 0)
     
 
 async def loop():
@@ -58,13 +60,19 @@ async def loop():
     global y_direction
     global emotion
     global Pos_emo
-    pi.set_servo_pulsewidth(SERVO_PIN1, 1000)
-    pi.set_servo_pulsewidth(SERVO_PIN2, 1000)
-    pi.set_servo_pulsewidth(SERVO_PIN1, 2000)
-    pi.set_servo_pulsewidth(SERVO_PIN2, 2000)
+    while True:
+        pi.set_servo_pulsewidth(SERVO_PIN1, 2200)
+        pi.set_servo_pulsewidth(SERVO_PIN2, 1500)
+        await asyncio.sleep(0.5)
+        pi.set_servo_pulsewidth(SERVO_PIN1, 2500)
+        pi.set_servo_pulsewidth(SERVO_PIN2, 1800)
+        await asyncio.sleep(0.5)
+        pi.set_servo_pulsewidth(SERVO_PIN1, 1900)
+        pi.set_servo_pulsewidth(SERVO_PIN2, 1200)
+        await asyncio.sleep(0.5)
     #while True:
     # Replace these values with actual sensor readings
-    x_pos = x_difference
+    #x_pos = x_difference
     # y_pos = 512
 
     # Map x_pos and y_pos values to servo pulse width range (500 to 2500 microseconds)
@@ -79,8 +87,8 @@ async def loop():
     #     blinkinterval = time.time()  # Update blink interval time
 
     #Change RGB LED color based on emotion
-    colours = Pos_emo[emotion.lower()]
-    set_colour(colours[0], colours[1], colours[2])
+    #colours = Pos_emo[emotion.lower()]
+    #set_colour(colours[0], colours[1], colours[2])
 
 # async def blink():
 #     # Assuming the values for blinking are set to specific pulse widths

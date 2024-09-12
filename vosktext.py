@@ -5,7 +5,9 @@ import pygame
 
 # Initialize pygame
 pygame.init()
+pygame.mixer.init()
 screen = pygame.display.set_mode((640, 480))  # Needed to capture events
+pygame.mixer.music.load('First computer to sing - Daisy Bell.wav')
 
 # Initialize the model with model-path
 model = vosk.Model(lang="en-us")
@@ -29,12 +31,22 @@ def is_r_pressed():
     keys = pygame.key.get_pressed()
     return keys[pygame.K_r]
 
+def is_s_pressed():
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            return False
+    keys = pygame.key.get_pressed()
+    return keys[pygame.K_s]
+
 # Start streaming and recognize speech
 def Listen():                                              
     full_text = ''              
     while not is_space_pressed():
         if is_r_pressed():
             return "debug_reset_EmergencyShower"
+        if is_s_pressed():
+            pygame.mixer.music.play()
         pass
     stream = p.open(format=pyaudio.paInt16, channels=1, rate=48000, input=True, frames_per_buffer=2048)
     
