@@ -10,12 +10,13 @@ resetString = "debug_reset_EmergencyShower"
 #thread = threading.Thread(target=motorytest)
 #thread.start()
 
-#This prgram will not show emotion, instead un-comment the code at the bottom of aiFile.py and run that
+#This prgram will not show emotion, instead un-comment the c ode at the bottom of aiFile.py and run that
 def main():
     while True:
         #Funky input
         userWords = vosktext.Listen()
         print(userWords)
+        asyncio.run(motorytest.loop())
         #^ replace with actual input func
         if userWords.lower() == resetString.lower():
             aiFile.history = []
@@ -38,5 +39,5 @@ def main():
             #^replace with actual output func
 
 if __name__ == '__main__':
-    asyncio.run(motorytest.loop())  # Start the asyncio event loop
+      # Start the asyncio event loop
     main()

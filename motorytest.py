@@ -60,16 +60,16 @@ async def loop():
     global y_direction
     global emotion
     global Pos_emo
-    while True:
-        pi.set_servo_pulsewidth(SERVO_PIN1, 2200)
-        pi.set_servo_pulsewidth(SERVO_PIN2, 1500)
-        await asyncio.sleep(0.5)
-        pi.set_servo_pulsewidth(SERVO_PIN1, 2500)
-        pi.set_servo_pulsewidth(SERVO_PIN2, 1800)
-        await asyncio.sleep(0.5)
-        pi.set_servo_pulsewidth(SERVO_PIN1, 1900)
-        pi.set_servo_pulsewidth(SERVO_PIN2, 1200)
-        await asyncio.sleep(0.5)
+    #while True:
+    pi.set_servo_pulsewidth(SERVO_PIN1, 2500)
+    pi.set_servo_pulsewidth(SERVO_PIN2, 1800)
+    await asyncio.sleep(0.5)
+    pi.set_servo_pulsewidth(SERVO_PIN1, 1900)
+    pi.set_servo_pulsewidth(SERVO_PIN2, 1200)
+    await asyncio.sleep(0.5)
+    pi.set_servo_pulsewidth(SERVO_PIN1, 2200)
+    pi.set_servo_pulsewidth(SERVO_PIN2, 1500)
+    await asyncio.sleep(0.5)
     #while True:
     # Replace these values with actual sensor readings
     #x_pos = x_difference
