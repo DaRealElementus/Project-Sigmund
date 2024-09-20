@@ -1,4 +1,3 @@
-
 '''File to utilise the CHATGPT API'''
 import openai
 from keys import openaiKey 
