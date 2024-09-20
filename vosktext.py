@@ -15,7 +15,6 @@ p = pyaudio.PyAudio()
 
 # Start streaming and recognize speech
 def Listen():                                              
-    full_text = ''
     while not keyboard.is_pressed(' '):
         pass
     stream = p.open(format=pyaudio.paInt16, channels=1, rate=48000, input=True, frames_per_buffer=2048)

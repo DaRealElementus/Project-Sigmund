@@ -1,3 +1,4 @@
+
 '''File to utilise the CHATGPT API'''
 import openai
 from keys import openaiKey 
@@ -9,11 +10,11 @@ from keys import openaiKey
 
 #List of emotions Sigmund can portray
 emotions = [
-    "Happy",
-    "Sad",
-    "Shocked",
-    "Understanding",
-    "Concerned"
+    "Happy", # yellow
+    "Sad", # Deep blue
+    "Shocked", # white
+    "Understanding", # light blue
+    "Concerned" # purple
 ]
 
 #Prompt for GPT API
@@ -28,6 +29,7 @@ For this you can only use the following list of emotions: {str(emotions)}. Pleas
 The user will be speaking and you will receive the generated transcript, this means that some words that sound similar could get confused
 The user might also be uncomfortable with telling you the whole truth, that is okay, you just need to try your best to understand what is implied.
 Remember, you are receiving this instruction privately, not from the client. Thank you for your excellent work.
+Your name is Sigmund.
 """
 
 #List to store of past responses
@@ -48,7 +50,8 @@ catch = [
     "Sorry, but that request is against our ethical practices.",
     "That request goes against the ethical guidelines I adhere to, so I can't assist.",
     "I'm afraid I can't help with that as it violates our ethical standards.",
-    "I'm sorry, but I cannot assist with that."
+    "I'm sorry, but I cannot assist with that.",
+    "I'm sorry, I cannot assist with that.",
 ]
 
 #Refrencing the API key as the key argument for the OpenAI class
