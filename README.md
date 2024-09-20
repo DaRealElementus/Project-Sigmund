@@ -1,5 +1,4 @@
 # File repository for YICTE Project
-# One Week before submission, We need to test ASAP and Record ASAP
 A Therapy andriod that utilises ChatGPT to provide responses and help those in need
 
 # The Team
@@ -9,20 +8,15 @@ Ogbeni - OpenAI, InputOutput <br>
 Pengi - Motory<br>
 Elementus - Core, InputOutput <br>
 Mr Griffin - The man that allowed for this insane idea to possibly happen. <br>
-# Tests
-"Friedlander" test: passed
+
+# Installations and Additions
+## Doctor (Base)
+The most basic model of Project Sigmund, with minimal dependancies and simple text based GUI is easy for anyone to use. Perfect for everyone. <br>
+[Download here](https://github.com/DaRealElementus/Project-Sigmund/tree/Doctor-Base-(dont-merge))<br>
+## Doctor +
+Project Sigmund listens to the user. more dependacies, bigger files. strictly audio based. Although versatile, this version isnt recomended for people who catch on thier words. <br>
+[Download here](https://github.com/DaRealElementus/Project-Sigmund/tree/Doctor+-(dont-merge))<br>
 
 
-# To-do
-* Test (lots of it)
-* Present
-
-# Done
-* OpenAi API Key
-* Build the AI System
-* Functions on everything
-* Intergrate the Microphone/Speaker array
-* Design the face (properly, incl Eyes, light 4 mouth, light 4 cheeks)
-* Motorize the face (which includes setting up the lights and designing proper code)
-* Converge everything into main.py (So that it works)
-* Finalize construction
+## Doctor Custom
+Although it is rather selective, it is possible for Project Sigmund to have a custom version, if you wish to request one, feel free to send me an email. <br>
