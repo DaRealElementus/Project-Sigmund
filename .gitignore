@@ -2,3 +2,4 @@
 keys.py
 /vosk-model-en-us-0.22-lgraph
 /vosk-model-en-us-0.42-gigaspeech
+__pycache__
